@@ -1,63 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Christine & Ben's Map World</title>
     <link rel="stylesheet" href="./styles/style.css">
 
-
-<script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
-<link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Raleway:wght@700;800;900&display=swap" rel="stylesheet"> 
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
 
 
 </head>
+
 <body>
-<header>
-    <div class="wrapper">
-        <h1>Take Me Out When the Covid Ends</h1>
-        <h2>find somewhere to eat at!!!</h2>
-    </div>
-</header>
-<main>
-    <section class="mapVisual">
-        <div class="flexcontainer wrapper">
-            <div class="formAndResults">
-                <div class="form">
-                    <fieldset>
+    <header>
+        <div class="wrapper title">
+            <h1>Take Me Out When the Covid Ends</h1>
+            <h2>find somewhere to eat at!!!</h2>
+        </div>
+    </header>
+    <main>
+        <section class="mainArea">
+            <div class="flexcontainer wrapper clearfix">
+                <div class="formAndResults">
+                    <div class="form">
                         <form action="">
-                        <label for=""></label>
-                        <input type="text">
-                        <label for=""></label>
-                        <input type="text">
-                        <label for=""></label>
-                        <input type="text">
-                        <label for=""></label>
-                        <input type="text">
-                        
-                    </form>
-                    </fieldset>
-                    <button class="submitButton"></button>
-                    <div class="results">
-                        <h3></h3>
-                        <p></p>
+                            <label for="origin">Where are you located?</label>
+                            <input type="text" name="origin" id="origin" placeholder="Address, City, or Postal Code"
+                                required>
+                            <label for="radius">How far are you willing to travel?</label>
+                            <input type="text" name="radius" id="radius" placeholder="Time in minutes">
+                            <h3>How are you getting there?</h3>
+                            <div class="radioLabels">
+                                <input type="radio" id="walk" name="units" value="wmin">
+                                <label for="walk">Walking</label>
+                            </div>
+                            <div class="radioLabels">
+                                <input type="radio" id="drive" name="units" value="dmin">
+                                <label for="drive">Driving</label>
+                            </div>
+                            
+                            <!-- <input type="text"> -->
+
+                            <input type="submit">
+
+                        </form>
+
+                    </div>
+                    <div class="textResults">
+
+                        <h3>results</h3>
+                        <p>find it yourself, you have Google!</p>
                     </div>
                 </div>
-            </div>
-            <div class="mapContainer">
-                <div id="map2"> </div>
-                <div id="map">  </div>
-                
-            </div>
-        </div>
-    </section>
-    <footer>
-        <p>Created by Ben Sarjeant & Christine Shiels for Juno College</p>
-    </footer>
-</main>
+
+                <div class="mapContainer clearfix">
+                    <!-- <div id="map2"> </div> -->
+                    <div id="map"> </div>
+
+                </div>
+
+        </section>
+        <footer>
+            <p>Created by Ben Sarjeant & Christine Shiels for <a href="https://www.JunoCollege.com">Juno College</a></p>
+        </footer>
+    </main>
 
 
-<script src='https://code.jquery.com/jquery-3.4.0.min.js' integrity='sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=' crossorigin='anonymous'></script>
-<script src="./script.js"></script>
+    <script src='https://code.jquery.com/jquery-3.4.0.min.js'
+        integrity='sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=' crossorigin='anonymous'></script>
+    <script src="./script.js"></script>
 </body>
+
 </html>
