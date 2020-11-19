@@ -3,7 +3,7 @@
 // declaring namespace
 const mapApp = {};
 
-// global variables 
+// global variables
 mapApp.apiKey ='Tfj4LjgSABueLr8yE5j99mdAMj3Fgspu';
 mapApp.searchUrl='http://www.mapquestapi.com/search/v2/radius';
 mapApp.mapUrl= 'https://www.mapquestapi.com/staticmap/v5/map';
@@ -30,21 +30,21 @@ mapApp.mapInit = () => {
     // leaflet methods: https://leafletjs.com/reference-1.3.4.html#map-methods-for-layers-and-controls
     mapApp.getInfo();
 
-    // function to pan to user based off of ajax request and zoom in 
+    // function to pan to user based off of ajax request and zoom in
     mapApp.panToUser = () => {
         map.panTo([mapApp.searchDataLat, mapApp.searchDataLong]);
         map.setZoom(15);
     }
 
     // function to add markers on map based off of ajax request
-    // takes two params, lat and long 
+    // takes two params, lat and long
     mapApp.addMarkers = (lat, long) => {
         new L.marker([lat, long]).addTo(map);
     }
 }
 // end of map initalize function
 
-// ajax request to get info 
+// ajax request to get info
 mapApp.getInfo = (function () {
     // firing the ajax query on a button click
     $('.submitButton').on('click', function () {
@@ -53,7 +53,7 @@ mapApp.getInfo = (function () {
             method: 'GET',
             dataType: 'json',
             data: {
-                // calling the data parameters in the order that 
+                // calling the data parameters in the order that
                 // is on the website
                 key: mapApp.apiKey,
                 origin: mapApp.origin,
@@ -66,23 +66,23 @@ mapApp.getInfo = (function () {
             mapApp.searchDataLat = searchData.origin.latLng.lat;
             mapApp.searchDataLong = searchData.origin.latLng.lng;
 
-            // creating array to hold all the search results 
+            // creating array to hold all the search results
             mapApp.searchDataPois = searchData.searchResults;
-            
+
             // calling func to move center point of map that is declared in mapinit
             mapApp.panToUser();
 
-            // iterating through each place of interest (poi) 
+            // iterating through each place of interest (poi)
             mapApp.searchDataPois.forEach(poi => {
 
-                // messing around 
+                // messing around
                 if (poi.fields.group_sic_code_name_ext === "(all) Restaurants") {
                     console.log("name:", poi.name, "sic code", poi.fields.group_sic_code_name_ext)
 
                     // calling marker func that is declared in mapinit
                     mapApp.addMarkers(poi.fields.lat, poi.fields.lng);
                 }
-            });            
+            });
         })
     })
 })
@@ -115,7 +115,7 @@ mapApp.init = () => {
 //     console.log(results);
 //     mapApp.userLat = results.origin.latLng.lat;
 //     mapApp.userLong = results.origin.latLng.lng;
-    
+
 
 // L.mapquest.key = mapApp.apiKey;
 

@@ -1,0 +1,50 @@
+// font-family: 'Averia Serif Libre', cursive;
+
+// font-family: 'Poppins', sans-serif;
+
+body, h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: white;
+}
+
+h1, h2 {
+    font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+    font-weight: 900;
+    font-size: 5rem;
+}
+
+h2 {
+    font-weight: 800;
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+label, h3 {
+font-size: 2rem;
+}
+
+.radioLabels label {
+    font-weight: 300;
+    font-style: 1.6rem;
+}
+
+input {
+    color: $color-primary-4;
+    font-weight: 400;
+    font-size: 1.6rem;
+}
+
+input[type="radio"]
+footer, a {
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
+a{
+    color: $color-secondary-1-1;
+}
