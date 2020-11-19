@@ -7,11 +7,13 @@ const mapApp = {};
 mapApp.apiKey ='Tfj4LjgSABueLr8yE5j99mdAMj3Fgspu';
 mapApp.searchUrl='http://www.mapquestapi.com/search/v2/radius';
 mapApp.mapUrl= 'https://www.mapquestapi.com/staticmap/v5/map';
-mapApp.units = 'wmin';
-mapApp.radius = '15';
-mapApp.origin = '483 Queen St W 3rd floor, Toronto, ON M5V 2A9';
+mapApp.units = '';
+mapApp.radius = '';
+mapApp.origin = '';
 mapApp.lat = '59.566601';
 mapApp.long = '-98.6166';
+mapApp.markerArray = [];
+mapApp.ambiguities = '';
 
 // map initializing function required to use leaflet and mapquest methods and for visually displaying map on page
 mapApp.mapInit = () => {
@@ -31,15 +33,25 @@ mapApp.mapInit = () => {
     mapApp.getInfo();
 
     // function to pan to user based off of ajax request and zoom in
-    mapApp.panToUser = () => {
-        map.panTo([mapApp.searchDataLat, mapApp.searchDataLong]);
+    mapApp.panToUser = (lat, lng) => {
         map.setZoom(15);
+        map.panTo([lat, lng]);
     }
+
 
     // function to add markers on map based off of ajax request
     // takes two params, lat and long
     mapApp.addMarkers = (lat, long) => {
-        new L.marker([lat, long]).addTo(map);
+        mapApp.marker = new L.marker([lat, long]);
+        mapApp.markerArray.push(L.marker([lat, long]));
+        map.addLayer(mapApp.marker);
+    }
+
+
+    // function to clear all previous markers on submit
+    mapApp.clearMarkers = function() {
+        $(".leaflet-marker-icon").remove();
+        $(".leaflet-pane.leaflet-shadow-pane").remove();
     }
 }
 // end of map initalize function
@@ -47,7 +59,12 @@ mapApp.mapInit = () => {
 // ajax request to get info
 mapApp.getInfo = (function () {
     // firing the ajax query on a button click
-    $('.submitButton').on('click', function () {
+    $('.form').on('submit', function (e) {
+        e.preventDefault(e);
+       
+        mapApp.origin = $('#origin').val();
+        mapApp.radius = $('#radius').val();
+        mapApp.units = $('input[name="units"]:checked').val();
         $.ajax({
             url: mapApp.searchUrl,
             method: 'GET',
@@ -59,30 +76,43 @@ mapApp.getInfo = (function () {
                 origin: mapApp.origin,
                 radius: mapApp.radius,
                 units: mapApp.units,
+                ambiguities: mapApp.ambiguities,
+                // MapQuest API only allows for 500 or less results from ajax call
+                maxMatches: 500,
+                hostedData: 'mqap.ntpois|group_sic_code_ext LIKE?|581208'
+
             }
         }).then(function (searchData) {
+            if (searchData.origin === undefined ) {
+                alert('Please type in a REAL address safi');
+                return;
+            } else if (searchData.searchResults === undefined) {
+                alert("You're going to need to walk farther!")
+                return;
+            }
             console.log(searchData);
-
             mapApp.searchDataLat = searchData.origin.latLng.lat;
             mapApp.searchDataLong = searchData.origin.latLng.lng;
 
             // creating array to hold all the search results
             mapApp.searchDataPois = searchData.searchResults;
-
+            mapApp.clearMarkers();
+            
             // calling func to move center point of map that is declared in mapinit
-            mapApp.panToUser();
+            mapApp.panToUser(mapApp.searchDataLat, mapApp.searchDataLong);
 
             // iterating through each place of interest (poi)
             mapApp.searchDataPois.forEach(poi => {
 
                 // messing around
-                if (poi.fields.group_sic_code_name_ext === "(all) Restaurants") {
-                    console.log("name:", poi.name, "sic code", poi.fields.group_sic_code_name_ext)
+                // if (poi.fields.group_sic_code_name_ext === "(all) Restaurants") {
+                //     console.log("name:", poi.name, "sic code", poi.fields.group_sic_code_name_ext)
 
                     // calling marker func that is declared in mapinit
                     mapApp.addMarkers(poi.fields.lat, poi.fields.lng);
-                }
+            // }
             });
+           
         })
     })
 })

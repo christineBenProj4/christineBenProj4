@@ -32,20 +32,21 @@
                             <input type="text" name="origin" id="origin" placeholder="Address, City, or Postal Code"
                                 required>
                             <label for="radius">How far are you willing to travel?</label>
-                            <input type="text" name="radius" id="radius" placeholder="Time in minutes">
+                            <input type="number" name="radius" id="radius" placeholder="Time in minutes" min="1" max="30">
                             <h3>How are you getting there?</h3>
                             <div class="radioLabels">
-                                <input type="radio" id="walk" name="units" value="wmin">
+                                <input type="radio" class="units" name="units" value="wmin">
                                 <label for="walk">Walking</label>
                             </div>
                             <div class="radioLabels">
-                                <input type="radio" id="drive" name="units" value="dmin">
+                                <input type="radio" class="units" name="units" value="dmin">
                                 <label for="drive">Driving</label>
                             </div>
                             
                             <!-- <input type="text"> -->
-
+                
                             <input type="submit">
+                    
 
                         </form>
 
