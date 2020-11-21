@@ -38,7 +38,7 @@ h3 {
     padding: 2% 0;
 }
 
-.formAndResults {
+.formAndDirections {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -66,18 +66,18 @@ h3 {
 }
 
 .form {
+    display: flex;
+    flex-direction: column;
     background-color: rgba(145, 76,  0,0.9);
     border-radius: 15px;
     box-shadow: 10px 10px rgba(107, 57,  0,0.9), 13px 13px 5px $black;
     border-radius: 15px;
     padding: 10%;
     width: 100%;
+    height: 74vh;
+    justify-content: center;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
 
 input[type="text"] {
     padding: 2.5%;
