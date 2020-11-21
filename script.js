@@ -65,7 +65,7 @@ mapApp.mapInit = () => {
             <h5 class="address">${address}</h5>
             <h5 class="city">${city}</h5>
             <h6>${phone}</h6>
-            <button class="directionButton">Get Directions. fool!</button>
+            <button class="directionButton">Get Directions</button>
         `);
     }
 
@@ -90,7 +90,7 @@ mapApp.getInfo = (function () {
     // utilizing the MapQuest Search API to fire an ajax query on a form submit
     $('.form').on('submit', function (e) {
         e.preventDefault(e);
-    
+
         // storing form submissions in global variables to be used in ajax call
         mapApp.origin = $('#origin').val();
         mapApp.originCity = $('#city').val();
@@ -150,7 +150,14 @@ mapApp.getInfo = (function () {
 mapApp.getDirections = (function () {
 
     // utilizing the MapQuest Directions API to fire an ajax query on a button click
-    $('#map').on('click', 'button', function () {
+    $('#map').on('click', '.directionButton', function () {
+
+        
+        $('.form').toggleClass('submitted');
+        $('input').toggleClass('invisible');
+        $('label').toggleClass('invisible');
+        $('.formTitle').toggleClass('arrow').html('<button class="backButton" type="button">Back to Form</button>');
+        $('.directions').toggleClass('invisible');
 
         // empty arrays to store list of directions and associated distance & clearing of div containing said directions
         mapApp.directionsText = [];
@@ -178,6 +185,8 @@ mapApp.getDirections = (function () {
         // creation of variable to store complete destination addresses
         mapApp.destCompleteAddress = String(mapApp.destAddress + ', ' + mapApp.destCity);
 
+        // function to toggle form on and off
+        mapApp.toggleForm();
 
         // start of direction ajax call
         $.ajax({
@@ -240,6 +249,18 @@ mapApp.getDirections = (function () {
     // end of jQuery on button click statement
 })
 // end of getDirections() function
+
+// fuction to toggle form on and off for getting directions
+mapApp.toggleForm = function() {
+    $('.backButton').on('click', function() {
+        $('.form').toggleClass('submitted');
+        $('input').toggleClass('invisible');
+        $('label').toggleClass('invisible');
+        $('.formTitle').toggleClass('arrow').html('<h3 class="formTitle">How are you getting there?</h3>');
+        $('.directions').toggleClass('invisible');
+})
+}
+
 
 
 // initialization function to call map initalize function

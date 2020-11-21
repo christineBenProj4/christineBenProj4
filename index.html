@@ -14,7 +14,7 @@
 
     <!-- Font importations -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Raleway:wght@700;800;900&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Raleway:wght@700;800;900&display=swap" rel="stylesheet">
 
     <!-- Style sheet required for MapQuest API to function -->
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
@@ -40,14 +40,14 @@
 
                     <!-- FORM SECTION ASKING FOR USERS CITY -->
                     <label for="city">What city are you in?</label>
-                    <input type="text" name="city" id="city" placeholder="City" pattern="[A-Za-z]+" oninvalid='setCustomValidity("Please enter on alphabets only.")' maxlength="35" required>
-                    
+                    <input type="text" name="city" id="city" placeholder="City" pattern="[A-Za-z]+" oninvalid='setCustomValidity("Please enter alphabets only.")' maxlength="35" required>
+
                     <!-- FORM SECTION ASKING USER DISTANCE IN MINUTES -->
                     <label for="radius">How far are you willing to travel?</label>
                     <input type="number" name="radius" id="radius" placeholder="Time in minutes" min="1" max="60" required>
-                    
+
                     <!-- FORM SECTION ASKING USER IF THEY'RE WALKING OR DRIVING -->
-                    <h3>How are you getting there?</h3>
+                    <h3 class="formTitle">How are you getting there?</h3>
                     <!-- WALKING -->
                     <div class="radioLabels">
                         <input type="radio" class="units" name="units" value="wmin" required>
@@ -61,25 +61,33 @@
 
                     <!-- FORM SUBMISSION BUTTON -->
                     <label for="submit" class='srOnly'>Submit</label>
-                    <input type="submit">
-    
+                    <input type="submit" class="submit" value="Find Food">
+
                 </form>
                 <!-- END OF FORM -->
 
 
                 <!-- SECTION HOLDING WRITTEN DIRECTIONS -->
-                <section class="directions">
-                    <h3></h3>
-                    <ol class="directionsList"> </ol>
+                <section class="directions invisible">
+                    <h3>Directions to A place To Eat</h3>
+                    <ol class="directionsList">
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
+                    </ol>
                 </section>
                 <!-- END OF DIRECTION SECTION-->
-                
+
             </section>
             <!-- END OF SECTION HOLDING FORM AND RESULTS -->
 
             <!-- SECTION CREATED TO HOLD MAP -->
             <section class="mapContainer">
-                <!-- <div id="map2"> </div> -->
                 <div id="map"></div>
             </section>
 
