@@ -152,12 +152,13 @@ mapApp.getDirections = (function () {
     // utilizing the MapQuest Directions API to fire an ajax query on a button click
     $('#map').on('click', '.directionButton', function () {
 
-        
+
         $('.form').toggleClass('submitted');
         $('input').toggleClass('invisible');
         $('label').toggleClass('invisible');
         $('.formTitle').toggleClass('arrow').html('<button class="backButton" type="button">Back to Form</button>');
-        $('.directions').toggleClass('invisible');
+        $('.directions').toggleClass('invisible', 'visible');
+    
 
         // empty arrays to store list of directions and associated distance & clearing of div containing said directions
         mapApp.directionsText = [];
@@ -245,6 +246,7 @@ mapApp.getDirections = (function () {
             // end of for loop to append directions
         })
         // end of direction ajax call
+        $('.directionButton').addClass('invisible');
     })
     // end of jQuery on button click statement
 })
