@@ -78,7 +78,7 @@ mapApp.mapInit = () => {
 }
 // end of map initalize function
 
-// ajax request to get info
+// ajax request to get restaurant info
 mapApp.getInfo = (function () {
     // firing the ajax query on a button click
     $('.form').on('submit', function (e) {
