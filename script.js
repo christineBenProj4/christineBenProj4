@@ -14,6 +14,8 @@ mapApp.directionUrl= 'http://open.mapquestapi.com/directions/v2/optimizedroute';
 mapApp.units = '';
 mapApp.radius = '';
 mapApp.origin = '';
+mapApp.originCity = '';
+mapApp.completeOriginCity = '';
 mapApp.ambiguities = '';
 mapApp.marker = '';
 // location for center point of the landing map page
@@ -59,7 +61,7 @@ mapApp.mapInit = () => {
         map.addLayer(mapApp.marker);
         // dynamically add information to marker when clicked based off of ajax
         mapApp.marker.bindPopup(`
-            <h4>${name}</h4>
+            <h4 class="name">${name}</h4>
             <h5 class="address">${address}</h5>
             <h5 class="city">${city}</h5>
             <h6>${phone}</h6>
@@ -88,12 +90,16 @@ mapApp.getInfo = (function () {
     // utilizing the MapQuest Search API to fire an ajax query on a form submit
     $('.form').on('submit', function (e) {
         e.preventDefault(e);
-
+    
         // storing form submissions in global variables to be used in ajax call
         mapApp.origin = $('#origin').val();
+        mapApp.originCity = $('#city').val();
         mapApp.radius = $('#radius').val();
         mapApp.units = $('input[name="units"]:checked').val();
 
+        // creation of variable to store complete addresses
+        mapApp.completeOriginCity = String(mapApp.origin + ', ' + mapApp.originCity);
+        
         // start of search ajax call
         $.ajax({
             url: mapApp.searchUrl,
@@ -101,12 +107,10 @@ mapApp.getInfo = (function () {
             dataType: 'json',
             data: {
                 key: mapApp.apiKey,
-                origin: mapApp.origin,
+                origin: mapApp.completeOriginCity,
                 radius: mapApp.radius,
                 units: mapApp.units,
                 ambiguities: mapApp.ambiguities,
-                // MapQuest API only allows for 500 or less results from ajax call
-                maxMatches: 500,
                 // SQL query to get all data with the (all) restaurant SIC code
                 hostedData: 'mqap.ntpois|group_sic_code_ext LIKE?|581208'
             }
@@ -156,6 +160,8 @@ mapApp.getDirections = (function () {
         // storing the selected markers address and city to be used later
         mapApp.destAddress = $('.address').text();
         mapApp.destCity = $('.city').text();
+        mapApp.destName = $('.name').text();
+        console.log(mapApp.destName)
         
         // switch statement to give varying directions if user is walking or driving
         switch (mapApp.units) {
@@ -169,8 +175,9 @@ mapApp.getDirections = (function () {
                 break;
         }
 
-        // creation of variable to store complete address of marker (destination)
+        // creation of variable to store complete destination addresses
         mapApp.destCompleteAddress = String(mapApp.destAddress + ', ' + mapApp.destCity);
+
 
         // start of direction ajax call
         $.ajax({
@@ -179,7 +186,7 @@ mapApp.getDirections = (function () {
             dataType: 'json',
             data: {
                 key: mapApp.apiKey,
-                from: mapApp.origin,
+                from: mapApp.completeOriginCity,
                 to: mapApp.destCompleteAddress,
                 units: 'k',
                 routeType: mapApp.units,
@@ -213,6 +220,10 @@ mapApp.getDirections = (function () {
                 // end forEach statement iterating over each literal direction
             }
             // end of conditional checking data integrity 
+
+            // setting the title of the direction section to explicity say the restaurants name
+            $('.directions h3').text(` Directions to ${mapApp.destName}`);
+
 
             // for loop to loop through each directions and append information gathered from ajax request into directionsList div, if it is the last direction given append slightly different html
             for (let i = 0; i < mapApp.directionsDistance.length; i++) {
