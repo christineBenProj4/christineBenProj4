@@ -6,7 +6,7 @@ const mapApp = {};
 // global variables
 mapApp.apiKey ='Tfj4LjgSABueLr8yE5j99mdAMj3Fgspu';
 mapApp.searchUrl='http://www.mapquestapi.com/search/v2/radius';
-mapApp.mapUrl= 'https://www.mapquestapi.com/staticmap/v5/map';
+mapApp.directionUrl= 'http://open.mapquestapi.com/directions/v2/optimizedroute';
 mapApp.units = '';
 mapApp.radius = '';
 mapApp.origin = '';
@@ -14,6 +14,7 @@ mapApp.lat = '59.566601';
 mapApp.long = '-98.6166';
 mapApp.markerArray = [];
 mapApp.ambiguities = '';
+mapApp.destAddress = [];
 
 // map initializing function required to use leaflet and mapquest methods and for visually displaying map on page
 mapApp.mapInit = () => {
@@ -36,27 +37,48 @@ mapApp.mapInit = () => {
     mapApp.panToUser = (lat, lng) => {
         map.setZoom(15);
         map.panTo([lat, lng]);
+        let group = new L.featureGroup(mapApp.markerArray);
+        map.fitBounds(group.getBounds());
     }
 
 
     // function to add markers on map based off of ajax request
     // takes two params, lat and long
-    mapApp.addMarkers = (lat, long) => {
+    mapApp.addMarkers = function(lat, long, name, address, city, phone)  {
         mapApp.marker = new L.marker([lat, long]);
         mapApp.markerArray.push(L.marker([lat, long]));
         map.addLayer(mapApp.marker);
+        mapApp.marker.bindPopup(`
+        <h4>${name}</h4>
+        <h5 class="address">${address}</h5>
+        <h5 class="city">${city}</h5>
+        <h6>${phone}</h6>
+        <button class="directionButton">Get Directions. fool!</button>
+        `);
+        // create array of marker addresses
+        mapApp.destAddress.push(address);
+        
+    }
+    mapApp.getDirections();
+
+    // function to add popups to the map with earch result information
+    mapApp.popup = function(html, position, options) {
+        
+    
     }
 
 
     // function to clear all previous markers on submit
     mapApp.clearMarkers = function() {
         $(".leaflet-marker-icon").remove();
-        $(".leaflet-pane.leaflet-shadow-pane").remove();
+        $(".leaflet-pane.leaflet-shadow-pane").css('display', 'none');
+        mapApp.markerArray = [];
+        mapApp.destAddress= [];
     }
 }
 // end of map initalize function
 
-// ajax request to get info
+// ajax request to get restaurant info
 mapApp.getInfo = (function () {
     // firing the ajax query on a button click
     $('.form').on('submit', function (e) {
@@ -98,21 +120,53 @@ mapApp.getInfo = (function () {
             mapApp.searchDataPois = searchData.searchResults;
             mapApp.clearMarkers();
             
-            // calling func to move center point of map that is declared in mapinit
-            mapApp.panToUser(mapApp.searchDataLat, mapApp.searchDataLong);
+            
 
             // iterating through each place of interest (poi)
             mapApp.searchDataPois.forEach(poi => {
-
-                // messing around
-                // if (poi.fields.group_sic_code_name_ext === "(all) Restaurants") {
-                //     console.log("name:", poi.name, "sic code", poi.fields.group_sic_code_name_ext)
-
                     // calling marker func that is declared in mapinit
-                    mapApp.addMarkers(poi.fields.lat, poi.fields.lng);
+                    mapApp.addMarkers(poi.fields.lat, poi.fields.lng, poi.fields.name, poi.fields.address, poi.fields.city, poi.fields.phone)
             // }
             });
-           
+           // calling func to move center point of map that is declared in mapinit
+            mapApp.panToUser(mapApp.searchDataLat, mapApp.searchDataLong);
+        })
+    })
+})
+
+// ajax request to get info
+mapApp.getDirections = (function () {
+    // firing the ajax query on a button click
+    $('#map').on('click', 'button', function () {
+        // e.preventDefault(e);
+        console.log(mapApp.destAddress);
+        mapApp.test = $('.address').text();
+        console.log('test', mapApp.test);
+        // this hangs the code so bad!!!!!!!!!!!!!!!!!!!
+        // for (i = 0; i = mapApp.destAddress.length; i++) {
+        //     if (mapApp.destAddress[i] === $('.address').text()) {
+        //         mapApp.destination = mapApp.destAddress[i];
+        //         break
+        //     }
+        //     break
+        // }
+        console.log(mapApp.origin, mapApp.destination);
+        $.ajax({
+            url: mapApp.directionUrl,
+            method: 'GET',
+            dataType: 'json',
+            data: {
+                // calling the data parameters in the order that
+                // is on the website
+                key: mapApp.apiKey,
+                from: mapApp.origin,
+                to: mapApp.test,
+                units: 'k',
+                routeType: 'pedestrian',
+
+            }
+        }).then(function (directionData) {
+            console.log(directionData);
         })
     })
 })

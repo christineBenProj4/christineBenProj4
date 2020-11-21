@@ -1,5 +1,5 @@
 body {
-    background-image: url(../assets/abstract-1238247_1280.jpg);
+    background-image: url(../assets/backgroundBurger.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -59,8 +59,9 @@ h3 {
 }
 
 .form {
-    background-color: rgba(145,104,  0,0.9);
-    box-shadow: 10px 10px rgba(107, 77,  0,0.9), 13px 13px 5px $black;
+    background-color: rgba(145, 76,  0,0.9);
+    border-radius: 15px;
+    box-shadow: 10px 10px rgba(107, 57,  0,0.9), 13px 13px 5px $black;
     border-radius: 15px;
     padding: 10%;
     width: 100%;
@@ -79,14 +80,14 @@ input[type="text"] {
 }
 
 label, .radioLabels {
-    margin: 3% 0 2% 0;
+    margin: 3% 0 5% 0;
 }
 
-input[type="submit"] {
+input[type="submit"], input[type="number"] {
     border: 2px solid $color-primary-4;
     border-radius: 10px;
     padding: 2.5%;
-    margin: 2% 0;
+    margin: 0 0 10% 0;
     background-color: $white;
 }
 
@@ -98,14 +99,6 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 
 input[type="submit"]:active {
     background-color: $color-secondary-1-1;
-}
-
-.textResults {
-    width: 100%;
-    background-color: rgba(145, 76,  0,0.9);
-    border-radius: 15px;
-    box-shadow: 10px 10px rgba(107, 57,  0,0.9), 13px 13px 5px $black;
-    padding: 10%;
 }
 
 footer {
