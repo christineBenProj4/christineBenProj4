@@ -266,7 +266,7 @@ body, h3 {
   color: white;
 }
 
-h1, h2 {
+h1, h2, h4, h5, h6 {
   font-family: 'Raleway', sans-serif;
 }
 
@@ -286,15 +286,37 @@ label, h3 {
   font-size: 2rem;
 }
 
+h4 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  text-transform: Capitalize;
+}
+
+h5 {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+h6 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-style: italic;
+}
+
 .radioLabels label {
   font-weight: 300;
   font-style: 1.6rem;
 }
 
-input {
+input, button {
   color: #6B4D00;
   font-weight: 400;
   font-size: 1.6rem;
+}
+
+.directionsList li {
+  font-size: 1.6rem;
+  font-weight: 300;
 }
 
 footer, a {
@@ -343,6 +365,10 @@ h3 {
   margin: 2% 0;
 }
 
+h5 {
+  margin: 5% 0;
+}
+
 .wrapper {
   max-width: 1280px;
   width: 85%;
@@ -360,6 +386,9 @@ h3 {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 2% 0;
 }
 
@@ -374,16 +403,10 @@ h3 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 30%;
-}
-
-.directions {
-  height: 250px;
-  width: 250px;
-  color: white;
 }
 
 .mapContainer {
@@ -415,10 +438,60 @@ h3 {
   border-radius: 15px;
   padding: 10%;
   width: 100%;
-  height: 74vh;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-transform: translateY(-2.5px);
+          transform: translateY(-2.5px);
+}
+
+.submitted {
+  text-align: center;
+  margin: 0 0 5% 0;
+  padding: 15% 0 0 0;
+}
+
+.backButton {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0;
+}
+
+.directionButton {
+  margin: 5% 0 0 0;
+}
+
+.invisible {
+  display: none;
+}
+
+.directions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #917F00;
+  border-radius: 15px;
+  -webkit-box-shadow: 10px 10px #6B5E00, 13px 13px 5px #000013;
+          box-shadow: 10px 10px #6B5E00, 13px 13px 5px #000013;
+  border-radius: 15px;
+  padding: 10%;
+  width: 100%;
+  -webkit-transform: translateY(-2.5px);
+          transform: translateY(-2.5px);
+}
+
+.directionsList {
+  padding: 0 0 0 10%;
+}
+
+.directionsList li {
+  margin: 2% 0;
+}
+
+.invisible {
+  display: none;
 }
 
 input[type="text"] {
@@ -432,7 +505,7 @@ label, .radioLabels {
   margin: 3% 0 5% 0;
 }
 
-input[type="submit"], input[type="number"] {
+input[type="submit"], input[type="number"], button {
   border: 2px solid #6B4D00;
   border-radius: 10px;
   padding: 2.5%;
@@ -440,13 +513,14 @@ input[type="submit"], input[type="number"] {
   background-color: #eff0f5;
 }
 
-input[type="submit"]:hover, input[type="submit"]:focus {
+input[type="submit"]:hover, input[type="submit"]:focus,
+button:hover, button:focus {
   border: 2px solid #6B3900;
   color: #6B3900;
   background-color: #E39A48;
 }
 
-input[type="submit"]:active {
+input[type="submit"]:active, button:active {
   background-color: #E3D048;
 }
 
