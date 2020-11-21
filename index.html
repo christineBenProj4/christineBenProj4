@@ -2,17 +2,22 @@
 <html lang="en">
 
 <head>
+    <!--
+        Project 4 @ Juno College
+        Find a restaurant near you!
+        Creators: Christine Shiels & Ben Sarjeant
+    -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Christine & Ben's Map World</title>
     <link rel="stylesheet" href="./styles/style.css">
 
+    <!-- Font importations -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Raleway:wght@700;800;900&display=swap" rel="stylesheet"> 
-    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+
+    <!-- Style sheet required for MapQuest API to function -->
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
-
-
 </head>
 
 <body>
@@ -23,48 +28,49 @@
         </div>
     </header>
     <main>
-        <section class="mainArea">
-            <div class="flexcontainer wrapper clearfix">
-                <div class="formAndResults">
-                    <div class="form">
-                        <form action="">
-                            <label for="origin">Where are you located?</label>
-                            <input type="text" name="origin" id="origin" placeholder="Address, City, or Postal Code"
-                                required>
-                            <label for="radius">How far are you willing to travel?</label>
-                            <input type="number" name="radius" id="radius" placeholder="Time in minutes" min="1" max="30">
-                            <h3>How are you getting there?</h3>
-                            <div class="radioLabels">
-                                <input type="radio" class="units" name="units" value="wmin">
-                                <label for="walk">Walking</label>
-                            </div>
-                            <div class="radioLabels">
-                                <input type="radio" class="units" name="units" value="dmin">
-                                <label for="drive">Driving</label>
-                            </div>
+        <div class="flexcontainer wrapper">
+            <section class="formAndResults">
+                <div class="form">
+                    <form action="">
+                        <label for="origin">Where are you located?</label>
+                        <input type="text" name="origin" id="origin" placeholder="Address, City, or Postal Code" required>
+                        <label for="radius">How far are you willing to travel?</label>
+                        <input type="number" name="radius" id="radius" placeholder="Time in minutes" min="1" max="30" required>
+                        <h3>How are you getting there?</h3>
+                        <div class="radioLabels">
+                            <input type="radio" class="units" name="units" value="wmin" required>
+                            <label for="walk">Walking</label>
+                        </div>
+                        <div class="radioLabels">
+                            <input type="radio" class="units" name="units" value="dmin" required>
+                            <label for="drive">Driving</label>
+                        </div>
 
-                            <input type="submit">
-                            
-                        </form>
-
-                    </div>
+                        <input type="submit">
+                        
+                    </form>
                 </div>
+                <!-- End of form-->
 
-                <div class="mapContainer clearfix">
-                    <!-- <div id="map2"> </div> -->
-                    <div id="map"> </div>
+                <section class="directions">
+                    <h3>Directions</h3>
+                    <ol class="directionsList"> </ol>
+                </section>
 
-                </div>
+            </section>
 
-        </section>
+            <section class="mapContainer">
+                <!-- <div id="map2"> </div> -->
+                <div id="map"></div>
+            </section>
+        </div>
         <footer>
             <p>Created by Ben Sarjeant & Christine Shiels for <a href="https://www.JunoCollege.com">Juno College</a></p>
         </footer>
     </main>
 
-
-    <script src='https://code.jquery.com/jquery-3.4.0.min.js'
-        integrity='sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=' crossorigin='anonymous'></script>
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <script src='https://code.jquery.com/jquery-3.4.0.min.js' integrity='sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=' crossorigin='anonymous'></script>
     <script src="./script.js"></script>
 </body>
 

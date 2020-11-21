@@ -324,6 +324,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  text-align: center;
 }
 
 h1 {
@@ -373,6 +374,12 @@ h3 {
       -ms-flex-pack: justify;
           justify-content: space-between;
   width: 30%;
+}
+
+.directions {
+  height: 250px;
+  width: 250px;
+  color: white;
 }
 
 .mapContainer {
