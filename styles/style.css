@@ -344,6 +344,7 @@ body {
   background-image: url(../assets/backgroundBurger.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100vh;
 }
 
 .title {
@@ -565,5 +566,13 @@ footer {
   }
   label, h3 {
     font-size: 1.8rem;
+  }
+}
+
+@media (hover: hover) {
+  input[type="submit"]:hover, button:hover {
+    border: 2px solid #6B3900;
+    color: #6B3900;
+    background-color: #E39A48;
   }
 }
