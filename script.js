@@ -9,9 +9,9 @@ const mapApp = {};
 // start of global variables
 mapApp.apiKey ='Tfj4LjgSABueLr8yE5j99mdAMj3Fgspu';
 // MapQuest Search API Url
-mapApp.searchUrl='http://www.mapquestapi.com/search/v2/radius';
+mapApp.searchUrl='https://www.mapquestapi.com/search/v2/radius';
 // MapQuest Directions API Url
-mapApp.directionUrl= 'http://open.mapquestapi.com/directions/v2/optimizedroute';
+mapApp.directionUrl= 'https://open.mapquestapi.com/directions/v2/optimizedroute';
 // global variables used throughout ajax requests
 mapApp.units = '';
 mapApp.radius = '';
@@ -167,8 +167,7 @@ mapApp.getDirections = (function () {
         mapApp.destAddress = $('.address').text();
         mapApp.destCity = $('.city').text();
         mapApp.destName = $('.name').text();
-        console.log(mapApp.destName)
-        
+                
         // switch statement to give varying directions if user is walking or driving
         switch (mapApp.units) {
             // if walking (wmin = walking minutes)
