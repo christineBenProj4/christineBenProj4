@@ -23,13 +23,13 @@
 <body>
     <header>
         <div class="wrapper title">
-            <h1>Take Me Out When the Covid Ends</h1>
-            <h2>find somewhere to eat at!!!</h2>
+            <h1>Find me some food!</h1>
+            <h2>Search for nearby restaurants!</h2>
         </div>
     </header>
     <main>
         <!-- START OF MAIN FLEX CONTAINER/WRAPPER -->
-        <div class="flexcontainer wrapper">
+        <div class="flexContainer wrapper">
             <!-- START OF SECTION HOLDING FORM AND RESULTS -->
             <section class="formAndDirections">
                 <!-- START OF FORM WAITING USER INPUT -->
@@ -40,7 +40,7 @@
 
                     <!-- FORM SECTION ASKING FOR USERS CITY -->
                     <label for="city">What city are you in?</label>
-                    <input type="text" name="city" id="city" placeholder="City" pattern="[A-Za-z]+" oninvalid='setCustomValidity("Please enter alphabets only.")' maxlength="35" required>
+                    <input type="text" name="city" id="city" placeholder="City" maxlength="35" required>
 
                     <!-- FORM SECTION ASKING USER DISTANCE IN MINUTES -->
                     <label for="radius">How far are you willing to travel?</label>
@@ -70,16 +70,7 @@
                 <!-- SECTION HOLDING WRITTEN DIRECTIONS -->
                 <section class="directions invisible">
                     <h3>Directions to A place To Eat</h3>
-                    <ol class="directionsList">
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim illum voluptates nihil.</li>
-                    </ol>
+                    <ol class="directionsList"></ol>
                 </section>
                 <!-- END OF DIRECTION SECTION-->
 
@@ -99,12 +90,13 @@
         </footer>
     </main>
 
-    <!-- IMPORTING -->
+    <!-- IMPORTING MAPQUEST API -->
     <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
     <!-- IMPORTING JQUERY -->
     <script src='https://code.jquery.com/jquery-3.4.0.min.js' integrity='sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=' crossorigin='anonymous'></script>
     <!-- IMPORTING OUR SCRIPT -->
     <script src="./script.js"></script>
+
 
 </body>
 

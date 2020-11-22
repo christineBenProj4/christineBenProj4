@@ -1,35 +1,40 @@
 // Project 4 @ Juno College
 // Find a restaurant near you!
 // Creators: Christine Shiels & Ben Sarjeant
+// Note to readers: mapquests results can be incredibly inaccurate, we wanted to use google maps api but a lot of the features were paywalled
 
 // declaring namespace
 const mapApp = {};
 
-// global variables
+// start of global variables
 mapApp.apiKey ='Tfj4LjgSABueLr8yE5j99mdAMj3Fgspu';
 // MapQuest Search API Url
 mapApp.searchUrl='http://www.mapquestapi.com/search/v2/radius';
 // MapQuest Directions API Url
 mapApp.directionUrl= 'http://open.mapquestapi.com/directions/v2/optimizedroute';
+// global variables used throughout ajax requests
 mapApp.units = '';
 mapApp.radius = '';
 mapApp.origin = '';
 mapApp.originCity = '';
 mapApp.completeOriginCity = '';
 mapApp.ambiguities = '';
+// global variables for markers which will be displayed on map
 mapApp.marker = '';
+mapApp.markerArray = [];
 // location for center point of the landing map page
 mapApp.lat = '59.566601';   
 mapApp.long = '-98.6166';
-mapApp.markerArray = [];
-// global variables for direction request
+// global variables for get directions request
 mapApp.destAddress = '';
 mapApp.destCity = '';
 mapApp.destCompleteAddress = '';
 mapApp.directionsText = [];
 mapApp.directionsDistance = [];
+// end of global variables
 
-// map initializing function required to use built in methods & to display map on page
+
+// start of map initializing function required to use built in methods & to display map on page
 mapApp.mapInit = () => {
 
     L.mapquest.key = mapApp.apiKey;
@@ -48,7 +53,7 @@ mapApp.mapInit = () => {
     // function to pan to users inputted location based off of ajax request
     // function sets a zoom for the map, moves location of map to the long and lat and sizes the map to view all available restaurants
     mapApp.panToUser = (lat, lng) => {
-        map.setZoom(15);
+        map.setZoom(14);
         map.panTo([lat, lng]);
         let markerGroup = new L.featureGroup(mapApp.markerArray);
         map.fitBounds(markerGroup.getBounds());
@@ -84,7 +89,7 @@ mapApp.mapInit = () => {
 // end of map initalize function
 
 
-// function to fire once user submits form
+// start of function to fire once user submits form
 mapApp.getInfo = (function () {
     
     // utilizing the MapQuest Search API to fire an ajax query on a form submit
@@ -117,10 +122,10 @@ mapApp.getInfo = (function () {
         }).then(function (searchData) {
             // some basic error handling to make sure the user types in a correct address
             if (searchData.origin === undefined ) {
-                alert('Please type in a REAL address safi');
+                alert("This address does not exist in MapQuest, please try again.");
                 return;
             } else if (searchData.searchResults === undefined) {
-                alert("You're going to need to walk farther!")
+                alert("No results within your search area, please increase distance or find new location.")
                 return;
             }
 
@@ -132,12 +137,10 @@ mapApp.getInfo = (function () {
 
                 // calling marker func that is declared in mapinit to dynamically add markers to map and passing it all the relevant data
                 mapApp.addMarkers(poi.fields.lat, poi.fields.lng, poi.fields.name, poi.fields.address, poi.fields.city, poi.fields.phone)
-
             });
 
             // calling func to move center point of map based off created variables above
             mapApp.panToUser(searchData.origin.latLng.lat, searchData.origin.latLng.lng);
-
         })
         // end of search ajax call
     })
@@ -146,20 +149,15 @@ mapApp.getInfo = (function () {
 // end of getInfo() function
 
 
-// function to fire once user clicks on "Get Directions" button on marker popup
+// start of function to fire once user clicks on "Get Directions" button on marker popup
 mapApp.getDirections = (function () {
 
     // utilizing the MapQuest Directions API to fire an ajax query on a button click
     $('#map').on('click', '.directionButton', function () {
 
-
-        $('.form').toggleClass('submitted');
-        $('input').toggleClass('invisible');
-        $('label').toggleClass('invisible');
-        $('.formTitle').toggleClass('arrow').html('<button class="backButton" type="button">Back to Form</button>');
-        $('.directions').toggleClass('invisible', 'visible');
+        // firing the show directions function to hide the user form and display div holding list of directions, function found near bottom
+        mapApp.showDirections();
     
-
         // empty arrays to store list of directions and associated distance & clearing of div containing said directions
         mapApp.directionsText = [];
         mapApp.directionsDistance = [];
@@ -186,8 +184,8 @@ mapApp.getDirections = (function () {
         // creation of variable to store complete destination addresses
         mapApp.destCompleteAddress = String(mapApp.destAddress + ', ' + mapApp.destCity);
 
-        // function to toggle form on and off
-        mapApp.toggleForm();
+        // function to hide direction div
+        mapApp.hideDirections();
 
         // start of direction ajax call
         $.ajax({
@@ -216,6 +214,7 @@ mapApp.getDirections = (function () {
                     // conditional to check distance of each direction, for visability purposes we are coverting km to m if the distance is less than 1 km
                     if (direction.distance < 1) {
 
+                        // conversion to meters
                         direction.distance = direction.distance * 1000;
             
                         // pushing the numerical distance of direction to an array to display on page (for meters)
@@ -230,6 +229,7 @@ mapApp.getDirections = (function () {
                 // end forEach statement iterating over each literal direction
             }
             // end of conditional checking data integrity 
+
 
             // setting the title of the direction section to explicity say the restaurants name
             $('.directions h3').text(` Directions to ${mapApp.destName}`);
@@ -246,33 +246,41 @@ mapApp.getDirections = (function () {
             // end of for loop to append directions
         })
         // end of direction ajax call
+
+        // jquery to hide the 'get directions' button after click on the map pane
         $('.directionButton').addClass('invisible');
     })
     // end of jQuery on button click statement
 })
 // end of getDirections() function
 
-// fuction to toggle form on and off for getting directions
-mapApp.toggleForm = function() {
-    $('.backButton').on('click', function() {
-        $('.form').toggleClass('submitted');
-        $('input').toggleClass('invisible');
-        $('label').toggleClass('invisible');
-        $('.formTitle').toggleClass('arrow').html('<h3 class="formTitle">How are you getting there?</h3>');
-        $('.directions').toggleClass('invisible');
-})
+
+// function to display directions and hide form input
+mapApp.showDirections = function () {
+    $('.form').addClass('submitted');
+    $('input').addClass('invisible');
+    $('label').addClass('invisible');
+    $('.formTitle').html('<button class="backButton" type="button">Back to Form</button>');
+    $('.directions').removeClass('invisible');
 }
 
-
+// function to hide directions and show form input
+mapApp.hideDirections = function() {
+    $('.backButton').on('click', function() {
+        $('.form').removeClass('submitted');
+        $('input').removeClass('invisible');
+        $('label').removeClass('invisible');
+        $('.formTitle').html('<h3 class="formTitle">How are you getting there?</h3>');
+        $('.directions').addClass('invisible');
+    })
+}
 
 // initialization function to call map initalize function
 mapApp.init = () => {
-    console.log('init!');
     mapApp.mapInit();
 }
 
 // function to ensure document is ready
 $(function() {
-    console.log('ready!');
     mapApp.init();
 })

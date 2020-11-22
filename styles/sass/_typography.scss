@@ -1,5 +1,4 @@
-
-
+// TYPOGRAPHY STYLING SHEET
 body, h3 {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
@@ -13,6 +12,8 @@ h1, h2, h4, h5, h6 {
 h1 {
     font-weight: 900;
     font-size: 5rem;
+    text-transform: uppercase;
+    margin: 2%;
 }
 
 h2 {
@@ -20,6 +21,11 @@ h2 {
     font-size: 3rem;
     text-transform: uppercase;
     font-style: italic;
+    margin: 0;
+}
+
+h3 {
+    margin: 2% 0;
 }
 
 label, h3 {
@@ -35,6 +41,7 @@ h4 {
 h5 {
     font-size: 1.6rem;
     font-weight: 700;
+    margin: 5% 0;
 }
 
 h6 {
@@ -64,10 +71,11 @@ footer, a {
     font-weight: 400;
 }
 
-a{
+a {
     color: $color-secondary-1-1;
 }
 
+// specific styling for 'get directions' destination title
 .destName {
     font-size: 1.8rem;
 }
