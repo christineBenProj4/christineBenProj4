@@ -344,7 +344,7 @@ body {
   background-image: url(../assets/backgroundBurger.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .title {
